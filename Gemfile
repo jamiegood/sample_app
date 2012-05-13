@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'mongrel', '>=1.2.0.pre2'
+
 gem 'rails', '3.2.3'
 
 # Bundle edge Rails instead:
