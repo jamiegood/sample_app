@@ -32,6 +32,8 @@ describe User do
   it { should be_valid }
   it { should_not be_admin}
   
+  # describe "with admin attributes set to 'true'"
+  
   describe "when name is not present" do
     before { @user.name = " "}
     it { should_not be_valid}
