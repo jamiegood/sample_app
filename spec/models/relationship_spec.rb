@@ -4,7 +4,7 @@ describe Relationship do
   
   let(:follower) { FactoryGirl.create(:user) }
   let(:followed) { FactoryGirl.create(:user) }
-  let(:relationship) { follower.relationship.build(followed_id: followed.id) }
+  let(:relationship) { follower.relationships.build(followed_id: followed.id) }
   
   subject { relationship }
   
@@ -25,4 +25,13 @@ describe Relationship do
     its(:followed) { should == followed }
   end
   
+  describe "when followed id is not present" do
+    before { relationship.followed_id = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when follower id is not present" do
+    before { relationship.follower_id = nil }
+    it { should_not be_valid }
+  end  
 end
