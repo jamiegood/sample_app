@@ -84,13 +84,14 @@ describe "Authentication" do
 
         describe "visiting the following page" do
           before { visit following_user_path(user) }
-          it { should have_selector('title', text: 'Sign In') }
+          it { should have_selector('title', text: 'Sign in') }
         end
 
         describe "visiting the followers page" do
           before { visit followers_user_path(user) }
-          it { should have_selector('title', text: 'Sign In') }
-        end      
+          it { should have_selector('title', text: 'Sign in') }
+        end   
+
       end
     
       describe "in the microposts controller" do
@@ -121,11 +122,11 @@ describe "Authentication" do
 
       describe "in the Relationships Controller" do
         describe "submitting to the create action" do
-          before { post relationship_path }
+          before { post relationships_path }
           specify { response.should redirect_to(signin_path) }
         end
         describe "submitting to the destroy action" do
-          before { delete relationship_path }
+          before { delete relationship_path(1) }
           specify { response.should redirect_to(signin_path) }
         end
       end
