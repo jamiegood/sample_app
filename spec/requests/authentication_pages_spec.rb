@@ -91,32 +91,43 @@ describe "Authentication" do
           before { visit followers_user_path(user) }
           it { should have_selector('title', text: 'Sign In') }
         end      
-    end
+      end
     
-    describe "in the microposts controller" do
+      describe "in the microposts controller" do
       
-      describe "submitting to the create actions" do
+        describe "submitting to the create actions" do
         
-        before { post microposts_path }
-        specify { response.should redirect_to(signin_path) }
+          before { post microposts_path }
+          specify { response.should redirect_to(signin_path) }
+        end
+      
+        describe "submitting to the destroy actions" do
+          before { delete micropost_path(FactoryGirl.create(:micropost)) }
+          specify { response.should redirect_to(signin_path) }
+        end
       end
       
-      describe "submitting to the destroy actions" do
-        before { delete micropost_path(FactoryGirl.create(:micropost)) }
-        specify { response.should redirect_to(signin_path) }
+      describe "as non-admin user" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:non_admin) { FactoryGirl.create(:user) }
+      
+        before { sign_in non_admin }
+      
+        describe "submitting a DELETE request to the User#destroy action" do
+          before { delete user_path(user) }
+          specify { response.should redirect_to(root_path) }
+        end
       end
-      
-    end
-      
-    describe "as non-admin user" do
-      let(:user) { FactoryGirl.create(:user) }
-      let(:non_admin) { FactoryGirl.create(:user) }
-      
-      before { sign_in non_admin }
-      
-      describe "submitting a DELETE request to the User#destroy action" do
-        before { delete user_path(user) }
-        specify { response.should redirect_to(root_path) }
+
+      describe "in the Relationships Controller" do
+        describe "submitting to the create action" do
+          before { post relationship_path }
+          specify { response.should redirect_to(signin_path) }
+        end
+        describe "submitting to the destroy action" do
+          before { delete relationship_path }
+          specify { response.should redirect_to(signin_path) }
+        end
       end
     end
   end

@@ -125,8 +125,7 @@ describe "User pages" do
           it { should have_selector('input', value: 'Follow') }
         end
       end
-    end
-  end    
+    end  
   end
   
   describe "signup" do
